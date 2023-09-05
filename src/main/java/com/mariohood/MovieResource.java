@@ -13,14 +13,13 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 @Path("/movies")
 public class MovieResource {
     
-    public static List<Movie> movies = new ArrayList<>();
+    private static List<Movie> movies = new ArrayList<>();
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,7 +46,7 @@ public class MovieResource {
     @Path("{id}/{title}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateMovie(
+    private static Response updateMovie(
         @PathParam("id") Long id,
         @PathParam("title") String title) {
     movies = movies.stream().map(movie -> {
@@ -74,7 +73,5 @@ public class MovieResource {
             return Response.noContent().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
-    
     }
-    
 }
